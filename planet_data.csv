@@ -1,16 +1,3 @@
-# This file was produced by the NASA Exoplanet Archive  http://exoplanetarchive.ipac.caltech.edu
-# Thu Oct  3 07:13:53 2024
-#
-# User preference: *
-#
-# COLUMN pl_name:        Planet Name
-# COLUMN hostname:       Host Name
-# COLUMN ra:             RA [deg]
-# COLUMN dec:            Dec [deg]
-# COLUMN sy_dist:        Distance [pc]
-# COLUMN sy_plx:         Parallax [mas]
-# COLUMN sy_gaiamag:     Gaia Magnitude
-#
 pl_name,hostname,ra,dec,sy_dist,sy_plx,sy_gaiamag
 11 Com b,11 Com,185.1787793,17.7932516,93.1846000,10.7104000,4.4403800
 11 UMi b,11 UMi,229.2745954,71.8239428,125.3210000,7.9538800,4.5621600
