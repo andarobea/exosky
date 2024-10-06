@@ -3,6 +3,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)   
+#cors = CORS(app, resources={r"/process": {"origins": "http://127.0.0.1:5000"}})
 
 @app.route('/process', methods=['POST'])
 def process_string():
