@@ -83,10 +83,12 @@ tr{
 td:first-child{
     font-weight: bold;
 }
-#activate-constellation{
+#constellationMenu{
     width: 20vw;
     height: 30vh;
     position: fixed;
     right: 0;
     bottom: 0;
+    display: flex;
+    flex-direction: column;
 }

@@ -117,9 +117,8 @@ function sendString(inputString) {
         });
 }
 // Function to activate constellation drawing
+let polylinePoints = [];  // Store the constellation points
 function enableConstellationDrawing() {
-    let polylinePoints = [];  // Store the constellation points
-
     // Add event listener for mouse clicks (RA/Dec coordinates)
     aladin.on('click', function(coord) {
         let ra = coord.ra;   // Right Ascension (RA)
@@ -132,12 +131,25 @@ function enableConstellationDrawing() {
     });
 
     // Add event listener for drawing the constellation
-    document.getElementById('activate-constellation').addEventListener('click', function() {
+    /*document.getElementById('activate-constellation').addEventListener('click', function() {
         if (polylinePoints.length > 1) {  // You need at least two points to draw a line
             overlay.add(A.polyline(polylinePoints));  // Draw the polyline with the clicked points
             console.log("Constellation drawn:", polylinePoints);
         } else {
             console.log("Not enough points to draw a polyline.");
         }
-    });
+    });*/
+}
+
+function activateConstellation(){
+    
+    if (polylinePoints.length > 1) {  // You need at least two points to draw a line
+        overlay.add(A.polyline(polylinePoints));  // Draw the polyline with the clicked points
+        console.log("Constellation drawn:", polylinePoints);
+    } else {
+        console.log("Not enough points to draw a polyline.");
+    }
+}
+function deleteConstellation(){
+    polylinePoints.length=0;
 }
