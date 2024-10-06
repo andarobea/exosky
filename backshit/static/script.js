@@ -14,7 +14,7 @@ A.init.then(() => {
     aladin.gotoRaDec(RA, DEC);
 });
 
-function toggleMenu(){
+function toggleMenu() {
     const upButton = document.getElementById("upButton");
     const downButton = document.getElementById("downButton");
     const menu = document.getElementById("menu");
@@ -36,7 +36,7 @@ async function loadCSV() {
     return Papa.parse(csvData, {
         header: false, // Assuming your CSV doesn't have a header
         skipEmptyLines: true // Skip empty lines
-    }).data;   
+    }).data;
 }
 
 // Function to search for the term in the second column
@@ -81,9 +81,10 @@ function displayResults(results) {
         const hostNameCell = document.createElement('td');
         hostNameCell.textContent = hostName;
         rowElement.appendChild(hostNameCell);
-        
+
         const rowLink = document.createElement('a');
-        
+
+
 
         table.appendChild(rowElement);
     });

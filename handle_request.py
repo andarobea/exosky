@@ -1,12 +1,11 @@
 from astroquery.gaia import Gaia
 import numpy as np
 import math
-import tqdm
+from tqdm import tqdm
 import csv
 import pickle
 
 import sys 
-
 
 if len(sys.argv) > 1:
     exoplanet_name = sys.argv[1]
@@ -109,9 +108,22 @@ def compute_positions(exoplanet_name):
     exoplanets = load_exoplanet_data_from_csv()
     stars = get_preprocessed_data(perform_gaia_query()) # should load from .pkl file -- load_gaia_data
     # these should be computed on start
+    print(exoplanets[exoplanet_name]["ra"], exoplanets[exoplanet_name]["dec"], exoplanets[exoplanet_name]["sy_dist"])
 
-    return reposition(stars, exoplanets[exoplanet_name]["ra"], exoplanets[exoplanet_name]["dec"], exoplanets[exoplanet_name]["sy_dist"])
+    return reposition(stars, float(exoplanets[exoplanet_name]["ra"]), float(exoplanets[exoplanet_name]["dec"]), float(exoplanets[exoplanet_name]["sy_dist"]))
 
+def get_csv_from_name(exoplanet_name):
+    tuple_list = compute_positions(exoplanet_name)
+    header = ["dist", "ra", "dec"]
+    
+    with open('output.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(header)
+        
+        for row in tuple_list:
+            writer.writerow(row)
+        
+get_csv_from_name("11 Com b")
 
 # def printstring(string):
 #     print("String is: ", string)
