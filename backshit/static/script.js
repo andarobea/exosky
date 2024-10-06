@@ -8,12 +8,16 @@ arcminutes = 43;
 arcseconds = 49.3;
 DEC = degrees + arcminutes / 60 + arcseconds / 60;
 RA = 15 * (hours + minutes / 60 + seconds / 60);
+
 let aladin;
+let overlay;
 A.init.then(() => {
     aladin = A.aladin('#aladin-lite-div', { fov: 140, projection: "STG", cooFrame: 'equatorial', showCooGridControl: true, showSimbadPointerControl: true, showCooGrid: false });
     aladin.gotoRaDec(RA, DEC);
-    var hips = A.catalogHiPS('./hips', {onClick: 'showTable', name: 'custom_sky'});  
+    var hips = A.catalogHiPS("/static/hips", {onClick: 'showTable', name: 'custom_sky'});  
     aladin.addCatalog(hips);
+    overlay = A.graphicOverlay({color: '#FF0000', lineWidth: 2});
+    aladin.addOverlay(overlay); // Add overlay once, it will be reused
 });
 
 function toggleMenu() {
@@ -112,4 +116,28 @@ function sendString(inputString) {
             console.error('Error:', error);
         });
 }
+// Function to activate constellation drawing
+function enableConstellationDrawing() {
+    let polylinePoints = [];  // Store the constellation points
 
+    // Add event listener for mouse clicks (RA/Dec coordinates)
+    aladin.on('click', function(coord) {
+        let ra = coord.ra;   // Right Ascension (RA)
+        let dec = coord.dec; // Declination (Dec)
+
+        // Add clicked coordinates to polylinePoints
+        polylinePoints.push([ra, dec]);
+
+        console.log(`Added point: RA = ${ra}, Dec = ${dec}`);
+    });
+
+    // Add event listener for drawing the constellation
+    document.getElementById('activate-constellation').addEventListener('click', function() {
+        if (polylinePoints.length > 1) {  // You need at least two points to draw a line
+            overlay.add(A.polyline(polylinePoints));  // Draw the polyline with the clicked points
+            console.log("Constellation drawn:", polylinePoints);
+        } else {
+            console.log("Not enough points to draw a polyline.");
+        }
+    });
+}
