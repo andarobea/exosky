@@ -44,17 +44,23 @@
     height:500px;
     width: 400px;
     border: 1px solid black;
-    position: fixed;
+    position: absolute;
     top:0;
     right: 0;
     width: 20vw;
     align-items: center;
     justify-content: center;
 }
-#searchInput{
-    width: 80%;
+.container{
+    justify-content: center;
+    margin: auto;
 }
-
+#searchInput{
+    width: 60%;
+}
+.butonel{
+    width: 20%;
+}
 #results{
     max-height: 80%;
     overflow-y: auto;

@@ -1,0 +1,33 @@
+# Input/output
+Input file: data12.csv
+Input type: ASCII
+ - ascii format: CSV
+ - has a header: true
+Output dir: hips12
+# Input data parameters
+Catalogue name: data12
+RA column name: RA
+DE column name: Dec
+# HiPS parameters
+Target: 0.0 +0.0
+# Score parameters
+Prog. score: magnitude
+ - sort order: asc
+# Algo parameters
+approx nSrc level 1: 3000
+approx nSrc level 2: 6000
+nSrc/pix min level 3: 3
+nSrc/pix max level 3: 30
+ratio l3 & 4: 0.2
+nSrc/pix min level>3: 50
+nSrc/pix max level>3: 500
+nSrc/pix minmax method: LOG
+level max: 5
+level used to compute coverage: 5
+simple mode = false
+nSrc/pix = 500
+# Other parameters
+Generate only levels 1  and 2: false
+Print informations: false
+# Additional parameters
+Number of threads: 16
