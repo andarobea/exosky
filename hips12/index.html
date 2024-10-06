@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>data12 HiPS catalogue</title>
+    <link rel='stylesheet' href='http://aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.css' />
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.9.1.min.js' charset='utf-8'></script>
+    <script type="text/javascript">var jqMenu = jQuery.noConflict();</script>
+    <script type="text/javascript">var hipsDir=null;</script>
+    <script type="text/javascript">
+      hipsDir = location.href;
+      hipsDir = hipsDir.substring(0,hipsDir.lastIndexOf("/",hipsDir.length));
+    </script>
+    <script type="text/javascript">
+      jQuery(function($){
+        var serverName=".";
+        var tabName="data12";
+        var baseUrl=hipsDir + "/";
+        // Fill web page info
+        $('.hipsNameSpan').text(tabName);
+	$('#hrefMetadata').attr("href", baseUrl + "metadata.xml");
+	$('#hrefProperties').attr("href", baseUrl + "properties");
+	$('#hrefMOC').attr("href", baseUrl + "Moc.fits");
+	$('#hrefAll1').attr("href", baseUrl + "Norder1/Allsky.tsv");
+	$('#hrefAll2').attr("href", baseUrl + "Norder2/Allsky.tsv");
+	$('#hipsBase').attr("href", baseUrl + "");
+	$('#hipsBase').text(baseUrl + "");
+	$('#tilesUrl').html(baseUrl + "Norder<i>[1-orderMax]</i>/Dir<i>[0-9]*</i>/Npix<i>[1-ipixMax]</i>.tsv");
+        // Aladin lite
+	var aladin = A.aladin('#aladin-lite-div', {target: 'Galactic Center', fov: 55});
+	var hips = A.catalogHiPS(baseUrl, {onClick: 'showTable', name: tabName});
+	aladin.addCatalog(hips);
+      });
+    </script> 
+  </head>
+  <body>
+    <h1>The <span class=hipsNameSpan></span> progressive table</h1>
+    This Web resource contains HiPS(*) components for the <b><span class=hipsNameSpan></span></b> progressive table.
+    <br/>
+    <table>
+      <tr>
+        <td>
+	  <div id='aladin-lite-div' style='width: 500px;height: 500px;'></div>
+	  <script type='text/javascript' src='http://aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.js' charset='utf-8'></script>
+	  <!--a href="http://aladin.u-strasbg.fr/AladinLite">Aladin Lite</a>
+	  not wet compatible with the new HiPS table version.-->
+        </td>
+        <td>
+          <ul>
+            <li> <b>Label:</b> <span class=hipsNameSpan></span></li>
+            <li> <b>Type:</b> HiPS table</li>
+            <li> <b>Raw property file:</b> <a id="hrefProperties" href="">properties</a></li>
+            <li> <b>Metadata:</b> <a id="hrefMetadata" href="">metadata.xml</a></li>
+	    <li> <b>Associated coverage map:</b> <a id="hrefMOC" href="">Moc.fits</a></li>
+            <li> <b>Base URL:</b> <a id="hipsBase" href=""></a></li>
+            <li> <b>Allsky level 1:</b> <a id="hrefAll1" href="">allsky1.tsv</a></li>
+            <li> <b>Allsky level 2:</b> <a id="hrefAll2" href="">allsky2.tsv</a></li>
+            <li> <b>Tiles URL format:</b> <span id="tilesUrl"></span></li>
+	    <!--li> <b>Allsky URL:</b> </li-->
+          </ul>
+        </td>
+      </tr>
+    </table>
+    This progressive catalogue can be displayed by <A HREF="http://aladin.u-strasbg.fr/AladinLite">Aladin Lite</A>,
+    by <A HREF="http://aladin.u-strasbg.fr/java/nph-aladin.pl?frame=downloading">Aladin Desktop</A>
+    client (just open the base URL) or any other HiPS aware clients.
+    <HR/>
+    <I>(*) The HiPS technology allows a dedicated client to access an astronomical table at any location and at any scale.
+       HiPS is based on HEALPix sky tessellation and it is designed for astronomical scientifical usages.
+       HiPS technical documentation is available <A HREF="http://aladin.u-strasbg.fr/HiPS/HiPS%20technical%20doc.pdf">here<A>
+    </I>
+  </body>
+</html>
+
