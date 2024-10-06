@@ -34,10 +34,10 @@ def load_gaia_data(filename="data122.csv"):
         next(reader)
         
         for row in reader:
-            data["RA"].append(row[0])
-            data["DEC"].append(row[1])
-            data["PRLX"].append(row[2])
-            data["MAG"].append(row[3])
+            data["RA"].append(row[1])
+            data["DEC"].append(row[2])
+            data["PRLX"].append(row[3])
+            data["MAG"].append(row[4])
     return data
 
 def get_preprocessed_data(gaia_results):
@@ -66,25 +66,28 @@ def reposition(star_dict, ex_ra, ex_dec, ex_dist):
         if not math.isnan(s_dist) and not math.isnan(s_ra) and not math.isnan(s_dec):
 
             # To radians
+            # print("dist: ", s_dist, ex_dist)
+            # print("dec: ", s_dec, ex_dec * 180/math.pi)
+            # print("ra: ", s_ra, ex_ra * 180/math.pi)
+
             s_ra = s_ra * math.pi/180
             s_dec = s_dec * math.pi/180
 
-            # print("dist: ", s_dist, ex_dist)
-            # print("dec: ", s_dec, ex_dec)
-            # print("ra: ", s_ra, ex_ra)
-
             # Ignore this crazy math, trust in us
             gamma = s_ra - ex_ra
+            #print("gamma: ", gamma * 180/math.pi, "\na: ", s_dist * math.cos(s_dec), "\nb: ", ex_dist * math.cos(ex_dec))
             aux = s_dist**2 * math.cos(s_dec)**2 + ex_dist**2 * math.cos(ex_dec)**2 - 2 * s_dist * math.cos(s_dec) * ex_dist * math.cos(ex_dec) * math.cos(gamma)
-            new_ra = math.acos((ex_dist**2 * math.cos(ex_dec)**2 + aux -s_dist**2 * math.cos(s_dec)**2) / (2 * ex_dist * math.cos(ex_dec) * aux) )
+            #print(math.sqrt(aux), (ex_dist**2 * math.cos(ex_dec)**2 + aux -s_dist**2 * math.cos(s_dec)**2) / (2 * ex_dist * math.cos(ex_dec) * math.sqrt(aux)))
+            
+            new_ra = math.acos((ex_dist**2 * math.cos(ex_dec)**2 + aux - s_dist**2 * math.cos(s_dec)**2) / (2 * ex_dist * math.cos(ex_dec) * math.sqrt(aux)) )
             new_dec = math.atan((s_dist * math.sin(s_dec) - ex_dist * math.sin(ex_dec)) / math.sqrt(aux))
             new_dist = (s_dist * math.sin(s_dec) - ex_dist * math.sin(ex_dec)) / math.sin(new_dec)
+            new_mag = s_mag -5 + 5 * math.log10(new_dist)
             # Ignore this crazy math, trust in us
 
             # To degrees 
-            # new_ra = new_ra * 180/math.pi
+            new_ra = new_ra * 180/math.pi
             new_dec = new_dec * 180/math.pi
-            new_mag = s_mag -5 + 5 * math.log10(new_dist)
 
             new_coord.append((new_dist, new_ra, new_dec, new_mag))
     
@@ -118,7 +121,7 @@ def compute_positions(exoplanet_name):
     print(exoplanets[exoplanet_name])
     stars = get_preprocessed_data(load_gaia_data()) # should load from .pkl file -- load_gaia_data
     # these should be computed on start
-    print(exoplanets[exoplanet_name]["ra"], exoplanets[exoplanet_name]["dec"], exoplanets[exoplanet_name]["sy_dist"])
+    # print(exoplanets[exoplanet_name]["ra"], exoplanets[exoplanet_name]["dec"], exoplanets[exoplanet_name]["sy_dist"])
 
     return reposition(stars, float(exoplanets[exoplanet_name]["ra"]), float(exoplanets[exoplanet_name]["dec"]), float(exoplanets[exoplanet_name]["sy_dist"]))
 
