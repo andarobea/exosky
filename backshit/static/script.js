@@ -20,7 +20,7 @@ A.init.then(() => {
     aladin.addOverlay(overlay); // Add overlay once, it will be reused
 });
 
-function toggleMenu(){
+function toggleMenu() {
     const upButton = document.getElementById("upButton");
     const downButton = document.getElementById("downButton");
     const menu = document.getElementById("menu");
@@ -42,7 +42,7 @@ async function loadCSV() {
     return Papa.parse(csvData, {
         header: false, // Assuming your CSV doesn't have a header
         skipEmptyLines: true // Skip empty lines
-    }).data;   
+    }).data;
 }
 
 // Function to search for the term in the second column
@@ -87,11 +87,11 @@ function displayResults(results) {
         const hostNameCell = document.createElement('td');
         hostNameCell.textContent = hostName;
         rowElement.appendChild(hostNameCell);
-        
+
         rowElement.onclick = () => {
             sendString(plName);
         };
-        
+
 
         table.appendChild(rowElement);
     });
@@ -100,7 +100,7 @@ function displayResults(results) {
 }
 
 function sendString(inputString) {
-    
+
     fetch('http://127.0.0.1:5000/process', {
         method: 'POST',
         headers: {
@@ -108,13 +108,13 @@ function sendString(inputString) {
         },
         body: JSON.stringify({ inputString: inputString }),
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Processed string from Python:', data.result);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log('Processed string from Python:', data.result);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 // Function to activate constellation drawing
 function enableConstellationDrawing() {
