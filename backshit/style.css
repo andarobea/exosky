@@ -1,0 +1,64 @@
+#aladin-lite-div{
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 80vw;
+    height: 100vh;
+    z-index: -2;
+}
+.slider{
+    height: 50px;
+    width: 100px;
+    position: absolute;
+    opacity: 40%;
+}
+.down{
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px 20px 0 0;
+}
+.up{
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 0px 0px 20px 20px;
+}
+.img{
+    width: 30px;
+    height: 30px;
+}
+.menu{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(43, 198, 198);
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: -1;
+}
+.hidden{
+    visibility: hidden;
+}
+.searchMenu{
+    height:500px;
+    width: 400px;
+    border: 1px solid black;
+    position: relative;
+}
+#results{
+    max-height: 80%;
+    overflow-y: auto;
+}
+table{
+    overflow:hidden;
+}
+tr{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border: solid;
+}
+td:first-child{
+    font-weight: bold;
+}
