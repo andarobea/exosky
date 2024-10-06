@@ -27,17 +27,25 @@ def perform_gaia_query():
     print(f"[INFO] Retrieved {number_of_rows} number of rows from Gaia API.\n")
     return results
 
-def load_gaia_data(filename):
-    with open(filename, mode='rb') as file:
-        gaia_results = pickle.load(file)
-    return gaia_results
+def load_gaia_data(filename="data122.csv"):
+    data={"RA": [], "DEC": [], "PRLX":[], "MAG": []}
+    with open(filename, mode='r', newline='') as file:
+        reader = csv.reader(file)
+        next(reader)
+        
+        for row in reader:
+            data["RA"].append(row[0])
+            data["DEC"].append(row[1])
+            data["PRLX"].append(row[2])
+            data["MAG"].append(row[3])
+    return data
 
 def get_preprocessed_data(gaia_results):
     # Extract RA and Dec
-    coordinates = gaia_results[['RA', 'DEC']]
-    parallax = np.array(gaia_results['PARALLAX'], dtype=float)
+    parallax = np.array(gaia_results['PRLX'], dtype=float)
     star_ra = np.array(gaia_results['RA'], dtype=float)
     star_dec = np.array(gaia_results['DEC'], dtype=float)
+    star_mag = np.array(gaia_results['MAG'], dtype=float)
 
     # Handle invalid parallax values (e.g., negative or zero)
     valid_parallax = np.where(parallax > 0, parallax, np.nan)  # set invalid values to NaN
@@ -45,7 +53,7 @@ def get_preprocessed_data(gaia_results):
     # Calculate distance in parsecs (1 / parallax in arcseconds)
     distance = 1 / (valid_parallax / 1000)  # convert parallax from milliarcseconds to arcseconds
 
-    return {"dist": distance, "ra": star_ra, "dec": star_dec}
+    return {"dist": distance, "ra": star_ra, "dec": star_dec, "mag": star_mag}
 
 def reposition(star_dict, ex_ra, ex_dec, ex_dist):
     new_coord = []
@@ -54,7 +62,7 @@ def reposition(star_dict, ex_ra, ex_dec, ex_dist):
     ex_ra = ex_ra * math.pi/180
     ex_dec = ex_dec * math.pi/180
 
-    for s_dist, s_ra, s_dec in tqdm(zip(star_dict["dist"], star_dict["ra"], star_dict["dec"]), total=len(star_dict["dist"])):
+    for s_dist, s_ra, s_dec, s_mag in tqdm(zip(star_dict["dist"], star_dict["ra"], star_dict["dec"], star_dict["mag"]), total=len(star_dict["dist"])):
         if not math.isnan(s_dist) and not math.isnan(s_ra) and not math.isnan(s_dec):
 
             # To radians
@@ -74,10 +82,11 @@ def reposition(star_dict, ex_ra, ex_dec, ex_dist):
             # Ignore this crazy math, trust in us
 
             # To degrees 
-            s_ra = s_ra * 180/math.pi
-            s_dec = s_dec * 180/math.pi
+            # new_ra = new_ra * 180/math.pi
+            new_dec = new_dec * 180/math.pi
+            new_mag = s_mag -5 + 5 * math.log10(new_dist)
 
-            new_coord.append((new_dist, new_ra, new_dec))
+            new_coord.append((new_dist, new_ra, new_dec, new_mag))
     
     return new_coord
 
@@ -106,7 +115,8 @@ def load_exoplanet_data_from_csv(filename="planet_data.csv"):
 def compute_positions(exoplanet_name):
     # these should be computed on start, not at every re-computation 
     exoplanets = load_exoplanet_data_from_csv()
-    stars = get_preprocessed_data(perform_gaia_query()) # should load from .pkl file -- load_gaia_data
+    print(exoplanets[exoplanet_name])
+    stars = get_preprocessed_data(load_gaia_data()) # should load from .pkl file -- load_gaia_data
     # these should be computed on start
     print(exoplanets[exoplanet_name]["ra"], exoplanets[exoplanet_name]["dec"], exoplanets[exoplanet_name]["sy_dist"])
 
@@ -114,7 +124,7 @@ def compute_positions(exoplanet_name):
 
 def get_csv_from_name(exoplanet_name):
     tuple_list = compute_positions(exoplanet_name)
-    header = ["dist", "ra", "dec"]
+    header = ["dist", "ra", "dec", "mag"]
     
     with open('output.csv', mode='w', newline='') as file:
         writer = csv.writer(file)
@@ -122,7 +132,7 @@ def get_csv_from_name(exoplanet_name):
         
         for row in tuple_list:
             writer.writerow(row)
-        
+
 get_csv_from_name("11 Com b")
 
 # def printstring(string):
