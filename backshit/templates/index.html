@@ -4,19 +4,19 @@
     <!-- Mandatory when setting up Aladin Lite v3 for a smartphones/tablet usage -->
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
 <div id="aladin-lite-div" class=""></div>
-<button id="downButton" class="slider down" onclick="toggleMenu()"><img class="img" src="./static/upArrow.svg"></button>
-<button id="upButton" class="slider up hidden" onclick="toggleMenu()"><img src="./static/downArrow.svg"  class="img"></button>
-<div id="menu" class="menu hidden"></div>
 
 <div class="searchMenu">
     <div class="container">
-        <input type="text" id="searchInput" placeholder="Search exoplanet by name..." />
-        <button class="butonel" onclick="searchCSV()">Search</button>
+        <input type="text" id="searchInput" class="glass grow" placeholder="Search exoplanet by name..." />
+        <button class="butonel grow" onclick="searchCSV()">Search</button>
         <p><b>Planet Name</b><br>
             Host Name
         </p>
@@ -24,9 +24,9 @@
     <div id="results"></div>
 </div>
 <div id="constellationMenu">
-    <a id="activate-constellation"onclick="enableConstellationDrawing()">Enable constelation drawing</a>
-    <a id="activate" onclick="activateConstellation()">Draw it!!</a>
-    <a onclick="deleteConstellation()">Delete the constelation</a>
+    <a class="glass grow" id="activate-constellation" onclick="enableConstellationDrawing()">Enable constelation drawing</a>
+    <a class="glass grow" id="activate" onclick="activateConstellation()">Draw it!!</a>
+    <a class="glass grow" onclick="deleteConstellation()">Delete the constelation</a>
 
 </div>
  

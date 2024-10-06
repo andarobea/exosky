@@ -1,54 +1,27 @@
+body{
+    background-color: #021526;
+    color:#fff;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
 #aladin-lite-div{
     position: fixed;
     top:0;
     left: 0;
     width: 80vw;
     height: 100vh;
-    z-index: -2;
-}
-.slider{
-    height: 50px;
-    width: 100px;
-    position: absolute;
-    opacity: 40%;
-}
-.down{
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 20px 20px 0 0;
-}
-.up{
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 0px 0px 20px 20px;
-}
-.img{
-    width: 30px;
-    height: 30px;
-}
-.menu{
-    height: 100vh;
-    width: 100vw;
-    background-color: rgb(43, 198, 198);
-    position: fixed;
-    top:0;
-    left: 0;
-    z-index: -1;
-}
-.hidden{
-    visibility: hidden;
 }
 .searchMenu{
     height:70vh;
-    border: 1px solid black;
+    border: 3px solid hsla(0, 0%, 100%, 0.5);
     position: absolute;
     top:0;
     right: 0;
     width: 20vw;
     align-items: center;
     justify-content: center;
+    border-bottom:hidden;
 }
 .container{ 
     height: 20%;
@@ -62,23 +35,51 @@
 #searchInput{
     width: 60%;
     margin-left: 10%;
+    height: 30px;
+    color:white;
+    opacity: 50%;
+}
+#searchInput:hover{
+    opacity: 100%;
 }
 .butonel{
     width: 20%;
+    height: 30px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    /*border:1px solid rgba(255, 255, 255, 0.18);*/
+    border: 2px solid white;
+    color:white;
+    opacity: 50%;
+}
+.container button:hover{
+    opacity: 100%;
 }
 #results{
     max-height: 75%;
     overflow-y: auto;
 }
 table{
+    width: 80%;
     margin: auto;
     overflow:hidden;
 }
 tr{
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
     border: solid;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+    opacity: 50%;
+}
+tr:hover{
+    opacity: 100%;
+}
+td{
+    padding: 5px;
 }
 td:first-child{
     font-weight: bold;
@@ -91,4 +92,39 @@ td:first-child{
     bottom: 0;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid hsla(0, 0%, 100%, 0.5);
 }
+#constellationMenu a{
+    width: 60%;
+    margin-inline: auto;
+    margin-top: 15px;
+    padding: 10px 5px;
+    border-radius: 15px;
+    text-align: center;
+    opacity: 50%;
+}
+#constellationMenu a:first-child{
+    margin-top: 0;
+}
+.glass{
+    background: linear-gradient(135deg, rgba(221, 198, 198, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    /*border:1px solid rgba(255, 255, 255, 0.18);*/
+    border: 1px solid white;
+}
+#constellationMenu a:hover{
+    opacity: 100%;
+}
+.grow {
+    display: inline-block; /* Required for transform to work */
+    transition: transform 0.3s ease; /* Smooth transition */
+  }
+  
+  .grow:active {
+    transform: scale(1.2); /* Scale up when active */
+  }
+  

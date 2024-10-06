@@ -88,6 +88,8 @@ function displayResults(results) {
         hostNameCell.textContent = hostName;
         rowElement.appendChild(hostNameCell);
 
+        rowElement.classList.add('glass');
+
         rowElement.onclick = () => {
             sendString(plName);
         };
@@ -131,14 +133,14 @@ function enableConstellationDrawing() {
     });
 
     // Add event listener for drawing the constellation
-    /*document.getElementById('activate-constellation').addEventListener('click', function() {
+    document.getElementById('activate-constellation').addEventListener('click', function() {
         if (polylinePoints.length > 1) {  // You need at least two points to draw a line
             overlay.add(A.polyline(polylinePoints));  // Draw the polyline with the clicked points
             console.log("Constellation drawn:", polylinePoints);
         } else {
             console.log("Not enough points to draw a polyline.");
         }
-    });*/
+    });
 }
 
 function activateConstellation(){
@@ -153,3 +155,18 @@ function activateConstellation(){
 function deleteConstellation(){
     polylinePoints.length=0;
 }
+
+const growLink = document.querySelector('.grow');
+growLink.addEventListener('mousedown', () => {
+  growLink.classList.add('active'); // Add a class to scale up
+});
+
+growLink.addEventListener('mouseup', () => {
+  growLink.classList.remove('active'); // Remove class to revert back
+});
+
+// Optional: Remove class after a short delay for better UX
+growLink.addEventListener('mouseleave', () => {
+  growLink.classList.remove('active');
+});
+
