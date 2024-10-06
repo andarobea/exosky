@@ -3,7 +3,17 @@ import numpy as np
 import math
 import tqdm
 import csv
-import pickle 
+import pickle
+
+import sys 
+
+
+if len(sys.argv) > 1:
+    exoplanet_name = sys.argv[1]
+    # Perform actions with exoplanet_name
+    print(f"Received exoplanet name: {exoplanet_name}")
+else:
+    print("No exoplanet name provided.")
 
 def perform_gaia_query():
     query = """
@@ -105,3 +115,11 @@ def compute_positions(exoplanet_name):
 
 # def printstring(string):
 #     print("String is: ", string)
+# import sys
+
+# if len(sys.argv) > 1:
+#     exoplanet_name = sys.argv[1]
+#     # Perform actions with exoplanet_name
+#     print(f"Received exoplanet name: {exoplanet_name}")
+# else:
+#     print("No exoplanet name provided.")

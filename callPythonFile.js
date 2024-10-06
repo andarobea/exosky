@@ -27,8 +27,7 @@ app.post('/run-python', (req, res) => {
     });
 
     pythonProcess.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
-        res.status(500).json({ error: 'Error running Python script' });
+        console.error(`stderr: ${data.toString()}`);  // Ensure errors are properly logged
     });
 });
 
