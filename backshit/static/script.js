@@ -12,6 +12,8 @@ let aladin;
 A.init.then(() => {
     aladin = A.aladin('#aladin-lite-div', { fov: 140, projection: "STG", cooFrame: 'equatorial', showCooGridControl: true, showSimbadPointerControl: true, showCooGrid: false });
     aladin.gotoRaDec(RA, DEC);
+    var hips = A.catalogHiPS('./hips', {onClick: 'showTable', name: 'custom_sky'});  
+    aladin.addCatalog(hips);
 });
 
 function toggleMenu() {

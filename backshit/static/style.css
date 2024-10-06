@@ -51,18 +51,24 @@
     align-items: center;
     justify-content: center;
 }
-.container{
-    justify-content: center;
-    margin: auto;
+.container{ 
+    height: 20%;
+    margin-top: 5%;    
+}
+.container p{
+    margin: 0;
+    margin-top: 10px;
+    text-align: center;
 }
 #searchInput{
     width: 60%;
+    margin-left: 10%;
 }
 .butonel{
     width: 20%;
 }
 #results{
-    max-height: 80%;
+    max-height: 75%;
     overflow-y: auto;
 }
 table{
