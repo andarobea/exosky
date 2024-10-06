@@ -41,8 +41,7 @@
     visibility: hidden;
 }
 .searchMenu{
-    height:500px;
-    width: 400px;
+    height:70vh;
     border: 1px solid black;
     position: absolute;
     top:0;
@@ -83,4 +82,11 @@ tr{
 }
 td:first-child{
     font-weight: bold;
+}
+#activate-constellation{
+    width: 20vw;
+    height: 30vh;
+    position: fixed;
+    right: 0;
+    bottom: 0;
 }
