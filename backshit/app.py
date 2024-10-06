@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -11,6 +11,11 @@ def process_string():
     # Use the string as a variable in your logic
     processed_string = input_string.upper()  # Example: processing the string
     return jsonify({"result": processed_string})
+
+@app.route('/', methods=['GET'])
+def render():
+    return render_template('index.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
