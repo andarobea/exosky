@@ -28,7 +28,7 @@ def perform_gaia_query():
     number_of_rows = len(results)
     print(f"[INFO] Retrieved {number_of_rows} number of rows from Gaia API.\n")
     return results
-def load_gaia_data(filename="data122.csv"):
+def load_gaia_data(filename="static/data122.csv"):
     data={"RA": [], "DEC": [], "PRLX":[], "MAG": []}
     with open(filename, mode='r', newline='') as file:
         reader = csv.reader(file)
@@ -82,9 +82,9 @@ def reposition(star_dict, ex_ra, ex_dec, ex_dist):
             new_coord.append((new_dist, new_ra, new_dec, new_mag))
     
     return new_coord
-def load_exoplanet_data_from_csv(filename="planet_data.csv"):
+def load_exoplanet_data_from_csv(filename="static/planet_data.csv"):
     data = []
-    with open("planet_data.csv", "r") as file:
+    with open(filename, "r") as file:
         csv_reader = csv.reader(file)
         for row in csv_reader:
             data.append(row)
@@ -124,7 +124,7 @@ def process_string():
     processed_string = input_string.upper()  # Example: processing the string
     print("something happened------------------------------")
     get_csv_from_name(input_string)
-    subprocess.call("./hipsgen.sh")
+    subprocess.call("./static/hipsgen.sh")
     print("something finished")
     return jsonify({"result": processed_string})
 
