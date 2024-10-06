@@ -44,13 +44,23 @@
     height:500px;
     width: 400px;
     border: 1px solid black;
-    position: relative;
+    position: fixed;
+    top:0;
+    right: 0;
+    width: 20vw;
+    align-items: center;
+    justify-content: center;
 }
+#searchInput{
+    width: 80%;
+}
+
 #results{
     max-height: 80%;
     overflow-y: auto;
 }
 table{
+    margin: auto;
     overflow:hidden;
 }
 tr{
