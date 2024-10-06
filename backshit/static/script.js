@@ -14,8 +14,8 @@ let overlay;
 A.init.then(() => {
     aladin = A.aladin('#aladin-lite-div', { fov: 140, projection: "STG", cooFrame: 'equatorial', showCooGridControl: true, showSimbadPointerControl: true, showCooGrid: false });
     aladin.gotoRaDec(RA, DEC);
-    //var hips = A.catalogHiPS("", {onClick: 'showTable', name: 'custom_sky'});  
-    //aladin.addCatalog(hips);
+    var hips = A.catalogHiPS("/static/hips", {onClick: 'showTable', name: 'custom_sky'});  
+    aladin.addCatalog(hips);
     overlay = A.graphicOverlay({color: '#FF0000', lineWidth: 2});
     aladin.addOverlay(overlay); // Add overlay once, it will be reused
 });
