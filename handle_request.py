@@ -103,3 +103,5 @@ def compute_positions(exoplanet_name):
     return reposition(stars, exoplanets[exoplanet_name]["ra"], exoplanets[exoplanet_name]["dec"], exoplanets[exoplanet_name]["sy_dist"])
 
 
+# def printstring(string):
+#     print("String is: ", string)

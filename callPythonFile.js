@@ -1,36 +1,37 @@
 const express = require('express');
 const { spawn } = require('child_process');
 const app = express();
+const cors = require('cors');
+const port = 3000;
 
-// Parse JSON bodies (as sent by API clients)
-app.use(express.json());
+// Middleware to handle plain text (when the client sends a plain string)
+app.use(express.text());
 
-// Endpoint to call the Python script
-app.post('/compute', (req, res) => {
-    const exoplanetName = req.body.exoplanetName;  // Get the exoplanet name from the request body
+app.use(cors());
 
-    // Spawn a new Python process to run the Python script
-    const python = spawn('python', ['./handle_request.py', exoplanetName]);
+app.post('/run-python', (req, res) => {
+    const exoplanetName = req.body;  // In this case, req.body will be the plain string sent by the client
 
-    // Collect data from Python script
-    python.stdout.on('data', (data) => {
-        console.log(`Data from Python script: ${data}`);
-        res.send(data.toString());  // Send the output back to the client
+    console.log(`Received exoplanetName: ${exoplanetName}`);
+
+    // Use the received string as an argument for the Python script
+    const pythonProcess = spawn('python', ['./handle_request.py', exoplanetName]);
+
+    let output = '';
+    pythonProcess.stdout.on('data', (data) => {
+        output += data.toString();
     });
 
-    // Error handling
-    python.stderr.on('data', (data) => {
-        console.error(`Error from Python script: ${data}`);
-        res.status(500).send('Error occurred while running the Python script');
+    pythonProcess.on('close', (code) => {
+        res.json({ output });
     });
 
-    // When the Python script ends
-    python.on('close', (code) => {
-        console.log(`Python script finished with code ${code}`);
+    pythonProcess.stderr.on('data', (data) => {
+        console.error(`stderr: ${data}`);
+        res.status(500).json({ error: 'Error running Python script' });
     });
 });
 
-// Start the server on port 3000
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
 });
