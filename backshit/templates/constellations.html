@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Aladin Lite Constellation Drawing</title>
+    <script src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js"></script>
+    <style>
+        #aladin-lite-div {
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Click to draw a constellation</h1>
+    <div id="aladin-lite-div"></div>
+    <button id="draw-constellation">Complete Constellation</button>
+    <script>
+        var aladin;
+        var polylinePoints = [];  // Store the constellation points
+
+        // Initialize Aladin Lite
+        A.init.then(() => {
+            aladin = A.aladin('#aladin-lite-div', {target: 'Gamma Cas', fov: 20});
+            var overlay = A.graphicOverlay({color: '#ee2345', lineWidth: 2});
+            aladin.addOverlay(overlay);
+
+            // Add event listener for mouse clicks
+            aladin.on('click', function(coord) {
+                var ra = coord.ra;   // Right Ascension (RA)
+                var dec = coord.dec; // Declination (Dec)
+
+                // Add clicked coordinates to polylinePoints
+                polylinePoints.push([ra, dec]);
+
+                console.log(`Added point: RA = ${ra}, Dec = ${dec}`);
+            });
+
+            // Event listener for completing the constellation
+            document.getElementById('draw-constellation').addEventListener('click', function() {
+                if (polylinePoints.length > 1) {  // You need at least two points to draw a line
+                    overlay.add(A.polyline(polylinePoints));  // Draw the polyline with the clicked points
+                    console.log("Constellation drawn:", polylinePoints);
+                } else {
+                    console.log("Not enough points to draw a polyline.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
